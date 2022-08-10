@@ -1,3 +1,4 @@
 .ipynb_checkpoints/
 Project-checkpoint.ipynb
 venv/
+image_predictions.tsv
