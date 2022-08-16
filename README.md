@@ -16,5 +16,5 @@ Since real-world datasets rarely come clean, I will be using Python and its libr
 **Additional tweet data**: Additional tweet information will be acquired from Twitter to address and bring out various insights on WeRateDog tweets, such as the number of likes and retweets, etc.
 
 ## Analysis
-Kind click [here](https://github.com/comsavvy/WeRateDogs-Wrangling-and-Visualization-Analysis/blob/main/Codes/wrangle_act.ipynb) to see the analysis. 
+Kindly click [here](https://github.com/comsavvy/WeRateDogs-Wrangling-and-Visualization-Analysis/blob/main/Codes/wrangle_act.ipynb) to see the analysis in action. 
 Enjoy!
