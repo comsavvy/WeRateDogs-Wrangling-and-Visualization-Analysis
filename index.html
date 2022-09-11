@@ -3,7 +3,7 @@
 <head><meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>wrangle_act</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>index</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 
 
 
@@ -18134,7 +18134,7 @@ memory usage: 267.1+ KB
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>Use pandas <code>query()</code> method to extract dataframe with ratings denominator of 10 and ratings numerator &lt;= 14. Evaluate the rating_numerator column by dividing it by 10. Make sure to remove ratings denominator and ratings numerator from the dataframe since we have the final rating.</p>
+<p>Use pandas <code>query()</code> method to extract dataframe with ratings denominator of 10 and ratings numerator &lt;= 14. Make sure to rename the ratings numerator to final ratings and drop the denominator since all ratings are consistence.</p>
 
 </div>
 </div>
@@ -18152,7 +18152,7 @@ memory usage: 267.1+ KB
 <span class="n">twitter_archive_clean</span> <span class="o">=</span> <span class="n">twitter_archive_clean</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;rating_denominator == 10 &amp; rating_numerator &lt;= 14&#39;</span><span class="p">)</span>
 
 <span class="c1"># final ratings in percentage</span>
-<span class="n">twitter_archive_clean</span><span class="p">[</span><span class="s1">&#39;final_ratings&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">twitter_archive_clean</span><span class="p">[</span><span class="s1">&#39;rating_numerator&#39;</span><span class="p">]</span>
+<span class="n">twitter_archive_clean</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;rating_numerator&#39;</span><span class="p">:</span> <span class="s1">&#39;final_ratings&#39;</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -18166,7 +18166,7 @@ memory usage: 267.1+ KB
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">twitter_archive_clean</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;rating_numerator&#39;</span><span class="p">,</span> <span class="s1">&#39;rating_denominator&#39;</span><span class="p">],</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">twitter_archive_clean</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s1">&#39;rating_denominator&#39;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -18261,11 +18261,11 @@ Data columns (total 14 columns):
  6   retweeted_status_user_id    175 non-null    float64       
  7   retweeted_status_timestamp  175 non-null    object        
  8   expanded_urls               2179 non-null   object        
- 9   name                        1502 non-null   object        
- 10  date                        2230 non-null   datetime64[ns]
- 11  time                        2230 non-null   object        
- 12  dog_stage                   376 non-null    category      
- 13  final_ratings               2230 non-null   float64       
+ 9   final_ratings               2230 non-null   float64       
+ 10  name                        1502 non-null   object        
+ 11  date                        2230 non-null   datetime64[ns]
+ 12  time                        2230 non-null   object        
+ 13  dog_stage                   376 non-null    category      
 dtypes: category(1), datetime64[ns](1), float64(5), object(7)
 memory usage: 246.3+ KB
 </pre>
@@ -18363,11 +18363,11 @@ Data columns (total 14 columns):
  6   retweeted_status_user_id    0 non-null      float64       
  7   retweeted_status_timestamp  0 non-null      object        
  8   expanded_urls               1983 non-null   object        
- 9   name                        1390 non-null   object        
- 10  date                        1986 non-null   datetime64[ns]
- 11  time                        1986 non-null   object        
- 12  dog_stage                   332 non-null    category      
- 13  final_ratings               1986 non-null   float64       
+ 9   final_ratings               1986 non-null   float64       
+ 10  name                        1390 non-null   object        
+ 11  date                        1986 non-null   datetime64[ns]
+ 12  time                        1986 non-null   object        
+ 13  dog_stage                   332 non-null    category      
 dtypes: category(1), datetime64[ns](1), float64(5), object(7)
 memory usage: 219.4+ KB
 </pre>
@@ -18454,8 +18454,8 @@ memory usage: 219.4+ KB
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>Index([&#39;tweet_id&#39;, &#39;source&#39;, &#39;text&#39;, &#39;expanded_urls&#39;, &#39;name&#39;, &#39;date&#39;, &#39;time&#39;,
-       &#39;dog_stage&#39;, &#39;final_ratings&#39;],
+<pre>Index([&#39;tweet_id&#39;, &#39;source&#39;, &#39;text&#39;, &#39;expanded_urls&#39;, &#39;final_ratings&#39;, &#39;name&#39;,
+       &#39;date&#39;, &#39;time&#39;, &#39;dog_stage&#39;],
       dtype=&#39;object&#39;)</pre>
 </div>
 
@@ -18500,11 +18500,11 @@ Data columns (total 9 columns):
  1   source         1986 non-null   object        
  2   text           1986 non-null   object        
  3   expanded_urls  1983 non-null   object        
- 4   name           1390 non-null   object        
- 5   date           1986 non-null   datetime64[ns]
- 6   time           1986 non-null   object        
- 7   dog_stage      332 non-null    category      
- 8   final_ratings  1986 non-null   float64       
+ 4   final_ratings  1986 non-null   float64       
+ 5   name           1390 non-null   object        
+ 6   date           1986 non-null   datetime64[ns]
+ 7   time           1986 non-null   object        
+ 8   dog_stage      332 non-null    category      
 dtypes: category(1), datetime64[ns](1), float64(1), object(6)
 memory usage: 141.8+ KB
 </pre>
